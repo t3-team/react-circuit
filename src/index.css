@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.terminal {
+  cursor: crosshair;
+  transition: fill 150ms ease-out;
+}
+
+.terminal:hover {
+  fill: #2196f3;
+}
+
+.component-body {
+  transition: transform 150ms ease-out;
+}
+
+.component-controls {
+  transition: opacity 150ms ease-out;
+}
+
+/* Smooth rotation animation */
+g[transform*="rotate"] {
+  transition: transform 150ms ease-out;
+}
