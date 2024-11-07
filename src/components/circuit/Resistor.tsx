@@ -15,6 +15,6 @@ export const Resistor: React.FC<BaseComponentProps> = (props) => {
       </text>
       <circle cx="-20" cy="0" r="3" fill="#666" className="terminal" />
       <circle cx="30" cy="0" r="3" fill="#666" className="terminal" />
-    </BaseComponent>
+    </BaseComponent> 
   );
 };
