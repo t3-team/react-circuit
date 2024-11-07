@@ -6,7 +6,7 @@ export const ValidationPanel: React.FC = () => {
   const { validationErrors } = useCircuitStore();
 
   if (!validationErrors.length) return null;
-
+ 
   return (
     <div className="absolute bottom-4 right-4 w-80 bg-white rounded-lg shadow-lg p-4">
       <h3 className="text-lg font-semibold mb-2">Circuit Validation</h3>

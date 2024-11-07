@@ -1,11 +1,23 @@
 export interface Point {
   x: number;
   y: number;
+  componentId?: string;
 }
+
+export type ComponentType = 
+  | 'resistor'
+  | 'capacitor'
+  | 'inductor'
+  | 'voltage_source'
+  | 'ground'
+  | 'diode'
+  | 'transistor'
+  | 'led'
+  | 'switch';
 
 export interface CircuitComponent {
   id: string;
-  type: 'resistor' | 'capacitor' | 'voltage_source';
+  type: ComponentType;
   position: Point;
   rotation: number;
   value?: string;
@@ -13,14 +25,14 @@ export interface CircuitComponent {
 
 export interface Wire {
   id: string;
-  from: {
-    componentId: string;
-    terminal: Point;
-  };
-  to: {
-    componentId: string;
-    terminal: Point;
-  };
+  points: Point[];
+  isFreePath?: boolean;
+}
+
+export interface ValidationError {
+  type: 'warning' | 'error';
+  message: string;
+  componentId?: string;
 }
 
 export const GRID_SIZE = 20;

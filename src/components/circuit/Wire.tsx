@@ -1,32 +1,39 @@
 import React from 'react';
-import { Point, Wire as WireType } from '../../types/Circuit';
+import { Point } from '../../types/Circuit';
 
 interface WireProps {
-  wire: WireType;
+  points: Point[];
   isSelected: boolean;
   onSelect: () => void;
 }
 
-export const Wire: React.FC<WireProps> = ({ wire, isSelected, onSelect }) => {
-  const { from, to } = wire;
+export const Wire: React.FC<WireProps> = ({ points, isSelected, onSelect }) => {
+  if (points.length < 2) return null;
 
-  // Calculate midpoint for orthogonal routing
-  const midX = (from.terminal.x + to.terminal.x) / 2;
-
-  // Create an orthogonal path with right angles
-  const path = `M ${from.terminal.x} ${from.terminal.y} 
-                L ${midX} ${from.terminal.y} 
-                L ${midX} ${to.terminal.y} 
-                L ${to.terminal.x} ${to.terminal.y}`;
+  const pathData = `M ${points.map(p => `${p.x} ${p.y}`).join(' L ')}`;
 
   return (
-    <path
-      d={path}
-      stroke={isSelected ? '#2196f3' : 'black'}
-      strokeWidth={2}
-      fill="none"
-      onClick={onSelect}
-      className="transition-colors duration-200 hover:stroke-blue-500 cursor-pointer"
-    />
+    <g>
+      <path
+        d={pathData}
+        stroke="transparent"
+        strokeWidth="10"
+        fill="none"
+        onClick={(e) => {
+          e.stopPropagation();
+          onSelect();
+        }}
+        style={{ cursor: 'pointer' }}
+      />
+      <path
+        d={pathData}
+        stroke={isSelected ? '#2563eb' : '#000'}
+        strokeWidth="2"
+        fill="none"
+        className={`transition-colors duration-150 ${
+          isSelected ? 'stroke-blue-500' : 'hover:stroke-blue-300'
+        }`}
+      />
+    </g>
   );
 };
